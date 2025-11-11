@@ -1,16 +1,10 @@
-import React from "react";
+import React from 'react';
 
-function Videos({ lang }) {
+export default function Videos({ language }) {
   return (
-    <div>
-      <h2>{lang === "en" ? "Video Portfolio" : "视频作品集"}</h2>
-      <p>
-        {lang === "en"
-          ? "Virtual stories and MV creations."
-          : "虚拟故事和音乐视频创作。"}
-      </p>
-    </div>
+    <section className="page">
+      <h2>{language === 'en' ? 'Videos Portfolio' : '视频作品集'}</h2>
+      <p>{language === 'en' ? 'Here are some of our videos.' : '这里展示我们的一些视频。'}</p>
+    </section>
   );
 }
-
-export default Videos;

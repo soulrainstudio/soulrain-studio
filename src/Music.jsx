@@ -1,16 +1,10 @@
-import React from "react";
+import React from 'react';
 
-function Music({ lang }) {
+export default function Music({ language }) {
   return (
-    <div>
-      <h2>{lang === "en" ? "Music Portfolio" : "音乐作品集"}</h2>
-      <p>
-        {lang === "en"
-          ? "Music compositions and sound designs."
-          : "音乐创作和声音设计。"}
-      </p>
-    </div>
+    <section className="page">
+      <h2>{language === 'en' ? 'Music Portfolio' : '音乐作品集'}</h2>
+      <p>{language === 'en' ? 'Here are some of our music tracks.' : '这里展示我们的一些音乐作品。'}</p>
+    </section>
   );
 }
-
-export default Music;

@@ -1,16 +1,10 @@
-import React from "react";
+import React from 'react';
 
-function Images({ lang }) {
+export default function Images({ language }) {
   return (
-    <div>
-      <h2>{lang === "en" ? "Image Portfolio" : "图片作品集"}</h2>
-      <p>
-        {lang === "en"
-          ? "Showcase of personal and company images."
-          : "展示个人和公司图片。"}
-      </p>
-    </div>
+    <section className="page">
+      <h2>{language === 'en' ? 'Images Portfolio' : '图片作品集'}</h2>
+      <p>{language === 'en' ? 'Here are some of our images.' : '这里展示我们的一些图片。'}</p>
+    </section>
   );
 }
-
-export default Images;
