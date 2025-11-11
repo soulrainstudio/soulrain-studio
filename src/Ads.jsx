@@ -1,10 +1,19 @@
-import React from 'react';
+import React from "react";
 
-export default function Ads({ language }) {
+export default function Ads({ lang }) {
   return (
-    <section className="page">
-      <h2>{language === 'en' ? 'Ads & Logos' : '广告和标志'}</h2>
-      <p>{language === 'en' ? 'Here are our ads and logos.' : '这里展示我们的广告和标志作品。'}</p>
+    <section>
+      <h2>{lang === "en" ? "Ads / Logos" : "广告 / 标志"}</h2>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+        <div>
+          <img src="/images/ad1.jpg" alt="Ad 1" width="300" />
+          <p>{lang === "en" ? "Ad 1" : "广告1"}</p>
+        </div>
+        <div>
+          <img src="/images/ad2.jpg" alt="Ad 2" width="300" />
+          <p>{lang === "en" ? "Ad 2" : "广告2"}</p>
+        </div>
+      </div>
     </section>
   );
 }

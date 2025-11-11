@@ -1,10 +1,13 @@
-export default function Videos() {
-  return (
-    <div className="page">
-      <h2>Videos</h2>
+import React from "react";
 
-      <video controls width="400" src="/videos/video1.mp4"></video>
-      <video controls width="400" src="/videos/video2.mp4"></video>
-    </div>
+export default function Videos({ lang }) {
+  return (
+    <section>
+      <h2>{lang === "en" ? "Videos" : "视频"}</h2>
+      <video controls width="600">
+        <source src="/videos/sample.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </section>
   );
 }

@@ -1,17 +1,18 @@
 import React from "react";
-import LanguageToggle from "./LanguageToggle";
 
-export default function Header({ lang, setLang }) {
+export default function Header({ lang, setLang, setSection }) {
   return (
-    <header className="header">
-      <div className="logo">{lang === "en" ? "Soulrain Studio" : "雨之魂工作室"}</div>
+    <header>
+      <button onClick={() => setLang(lang === "en" ? "zh" : "en")}>
+        {lang === "en" ? "中文" : "EN"}
+      </button>
       <nav>
-        <a href="#videos">{lang === "en" ? "Videos" : "视频"}</a>
-        <a href="#images">{lang === "en" ? "Images" : "图片"}</a>
-        <a href="#music">{lang === "en" ? "Music" : "音乐"}</a>
-        <a href="#ads">{lang === "en" ? "Ads/Logo" : "广告/标志"}</a>
+        <button onClick={() => setSection("home")}>{lang === "en" ? "Home" : "首页"}</button>
+        <button onClick={() => setSection("videos")}>{lang === "en" ? "Videos" : "视频"}</button>
+        <button onClick={() => setSection("music")}>{lang === "en" ? "Music" : "音乐"}</button>
+        <button onClick={() => setSection("ads")}>{lang === "en" ? "Ads / Logos" : "广告 / 标志"}</button>
+        <button onClick={() => setSection("photography")}>{lang === "en" ? "Photography" : "摄影"}</button>
       </nav>
-      <LanguageToggle lang={lang} setLang={setLang} />
     </header>
   );
 }
