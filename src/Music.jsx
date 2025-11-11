@@ -1,18 +1,10 @@
 import React from "react";
 
-export default function Music({ lang }) {
+export default function Music({ language }) {
   return (
-    <section>
-      <h2>{lang === "en" ? "Music" : "音乐"}</h2>
-      <div>
-        <p>{lang === "en" ? "Sample Music Track" : "示例音乐"}</p>
-        <audio controls>
-          <source src="/music/sample.mp3" type="audio/mpeg" />
-          {lang === "en"
-            ? "Your browser does not support the audio element."
-            : "您的浏览器不支持音频播放。"}
-        </audio>
-      </div>
-    </section>
+    <div>
+      <h2>{language === "en" ? "Music Portfolio" : "音乐作品集"}</h2>
+      <p>{language === "en" ? "Display your songs or audio projects here." : "在此展示您的音乐或音频作品。"}</p>
+    </div>
   );
 }

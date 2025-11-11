@@ -1,15 +1,16 @@
 import React from "react";
 
-export default function Portfolio({ lang, setSection }) {
+export default function Portfolio({ lang }) {
   return (
     <section>
-      <h2>{lang === "en" ? "Our Works" : "我们的作品"}</h2>
-      <div>
-        <button onClick={() => setSection("videos")}>{lang === "en" ? "Videos" : "视频"}</button>
-        <button onClick={() => setSection("music")}>{lang === "en" ? "Music" : "音乐"}</button>
-        <button onClick={() => setSection("ads")}>{lang === "en" ? "Ads / Logos" : "广告 / 标志"}</button>
-        <button onClick={() => setSection("photography")}>{lang === "en" ? "Photography" : "摄影"}</button>
-      </div>
+      <h2>{lang === "en" ? "Portfolio Sections" : "作品集"}</h2>
+      <ul>
+        <li>{lang === "en" ? "Images" : "图片"}</li>
+        <li>{lang === "en" ? "Videos" : "视频"}</li>
+        <li>{lang === "en" ? "Music" : "音乐"}</li>
+        <li>{lang === "en" ? "Ads / Logos" : "广告 / 标志"}</li>
+        <li>{lang === "en" ? "Photography" : "摄影"}</li>
+      </ul>
     </section>
   );
 }

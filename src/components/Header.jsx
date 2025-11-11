@@ -1,18 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export default function Header({ lang, setLang, setSection }) {
+export default function Header({ lang, setLang }) {
   return (
     <header>
-      <button onClick={() => setLang(lang === "en" ? "zh" : "en")}>
-        {lang === "en" ? "中文" : "EN"}
-      </button>
       <nav>
-        <button onClick={() => setSection("home")}>{lang === "en" ? "Home" : "首页"}</button>
-        <button onClick={() => setSection("videos")}>{lang === "en" ? "Videos" : "视频"}</button>
-        <button onClick={() => setSection("music")}>{lang === "en" ? "Music" : "音乐"}</button>
-        <button onClick={() => setSection("ads")}>{lang === "en" ? "Ads / Logos" : "广告 / 标志"}</button>
-        <button onClick={() => setSection("photography")}>{lang === "en" ? "Photography" : "摄影"}</button>
+        <Link to="/">{lang === "en" ? "Home" : "主页"}</Link> | 
+        <Link to="/images">{lang === "en" ? "Images" : "图片"}</Link> | 
+        <Link to="/videos">{lang === "en" ? "Videos" : "视频"}</Link> | 
+        <Link to="/music">{lang === "en" ? "Music" : "音乐"}</Link> | 
+        <Link to="/ads">{lang === "en" ? "Ads/Logo" : "广告/标志"}</Link> | 
+        <Link to="/photography">{lang === "en" ? "Photography" : "摄影"}</Link>
       </nav>
+      <button onClick={() => setLang(lang === "en" ? "zh" : "en")}>
+        {lang === "en" ? "中文" : "English"}
+      </button>
     </header>
   );
 }

@@ -1,23 +1,10 @@
 import React from "react";
 
-export default function Photography({ lang }) {
+export default function Photography({ language }) {
   return (
-    <section>
-      <h2>{lang === "en" ? "Photography" : "摄影"}</h2>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-        <div>
-          <img src="/images/photo1.jpg" alt="Photo 1" width="300" />
-          <p>{lang === "en" ? "Photo 1" : "照片1"}</p>
-        </div>
-        <div>
-          <img src="/images/photo2.jpg" alt="Photo 2" width="300" />
-          <p>{lang === "en" ? "Photo 2" : "照片2"}</p>
-        </div>
-        <div>
-          <img src="/images/photo3.jpg" alt="Photo 3" width="300" />
-          <p>{lang === "en" ? "Photo 3" : "照片3"}</p>
-        </div>
-      </div>
-    </section>
+    <div>
+      <h2>{language === "en" ? "Photography Portfolio" : "摄影作品集"}</h2>
+      <p>{language === "en" ? "Showcase your photography works here." : "在此展示您的摄影作品。"}</p>
+    </div>
   );
 }
