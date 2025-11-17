@@ -1,0 +1,12 @@
+[
+  {
+    "title": "song1",
+    "src": "/Music/song1.mp4",
+    "thumbnail": "/Music/song1.jpg"
+  },
+  {
+    "title": "song2",
+    "src": "/Music/song2.mp4",
+    "thumbnail": "/Music/song2.jpg"
+  }
+]

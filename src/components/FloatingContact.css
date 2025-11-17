@@ -1,0 +1,132 @@
+/* ---------------------------------------------------
+   Wrapper
+--------------------------------------------------- */
+.floating-contact-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+}
+
+/* ---------------------------------------------------
+   Floating Button — pill style
+--------------------------------------------------- */
+.floating-contact {
+  background: #f6c945;
+  color: black;
+  padding: 10px 18px;
+  border-radius: 28px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  border: none;
+  outline: none;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-contact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.contact-icon {
+  font-size: 20px;
+}
+
+.contact-text {
+  font-size: 15px;
+}
+
+/* ---------------------------------------------------
+   Contact Panel (click-to-open)
+--------------------------------------------------- */
+.contact-panel {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+
+  background: rgba(0, 0, 0, 0.94);
+  padding: 14px;
+  border-radius: 14px;
+  width: 220px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* When state is open */
+.contact-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ---------------------------------------------------
+   Contact Items
+--------------------------------------------------- */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 8px 6px;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.contact-item:hover {
+  color: #f6c945;
+}
+
+.icon {
+  font-size: 18px;
+}
+
+/* ---------------------------------------------------
+   WeChat QR Section
+--------------------------------------------------- */
+.qr-item {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.qr-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qr-image {
+  width: 120px;
+  margin-top: 6px;
+  border-radius: 6px;
+}
+
+/* ---------------------------------------------------
+   Small screen tweak (optional)
+--------------------------------------------------- */
+@media (max-width: 600px) {
+  .floating-contact-wrapper {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .contact-panel {
+    width: 210px;
+  }
+}

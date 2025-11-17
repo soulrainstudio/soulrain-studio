@@ -1,0 +1,316 @@
+/* ---------------------------------------------------
+   HOMEPAGE WRAPPER
+--------------------------------------------------- */
+.homepage {
+  background: transparent !important;
+  position: relative;
+  z-index: 0;
+}
+
+/* ---------------------------------------------------
+   HERO SECTION
+--------------------------------------------------- */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+  border-bottom: 1px solid #333;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------
+   BACKGROUND IMAGE
+--------------------------------------------------- */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px) brightness(0.82);
+  z-index: 0;
+  animation: heroPan 24s ease-in-out infinite alternate;
+}
+
+@keyframes heroPan {
+  0%   { transform: scale(1.05); }
+  50%  { transform: scale(1.08) translate(-12px, -10px); }
+  100% { transform: scale(1.05) translate(10px, 10px); }
+}
+
+/* ---------------------------------------------------
+   DARK OVERLAY
+--------------------------------------------------- */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(10, 10, 20, 0.55),
+    rgba(5, 5, 15, 0.70)
+  );
+  z-index: 1;
+}
+
+/* ---------------------------------------------------
+   RAIN EFFECT
+--------------------------------------------------- */
+.rain {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.raindrop {
+  position: absolute;
+  width: 1.4px;
+  height: 24px;
+  background: rgba(255,255,255,0.48);
+  border-radius: 1px;
+  animation: raindropFall 0.75s linear infinite;
+}
+
+@keyframes raindropFall {
+  0%   { transform: translateY(-35px); opacity: 0; }
+  20%  { opacity: 0.9; }
+  100% { transform: translateY(480px); opacity: 0; }
+}
+
+/* ---------------------------------------------------
+   HYPER FOG (strong, cinematic)
+--------------------------------------------------- */
+.fog {
+  position: absolute;
+  width: 650%;
+  height: 300px;
+  left: -300%;
+  background: radial-gradient(
+    circle,
+    rgba(220,220,220,0.34) 0%,
+    rgba(220,220,220,0) 70%
+  );
+  filter: blur(80px);
+  opacity: 0.50;
+  pointer-events: none;
+  z-index: 3;
+  animation: fogMove 0.42s linear infinite alternate;
+}
+
+.fog-top {
+  top: -40px;
+}
+
+.fog-bottom {
+  bottom: -40px;
+  animation-delay: 0.18s;
+}
+
+@keyframes fogMove {
+  0%   { transform: translateX(-520px); }
+  100% { transform: translateX(520px); }
+}
+
+/* ---------------------------------------------------
+   LIGHTNING FLASH
+--------------------------------------------------- */
+.lightning {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.50);
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+  animation: lightningFlash 12s infinite;
+}
+
+@keyframes lightningFlash {
+  0%, 96%, 100% { opacity: 0; }
+  97%   { opacity: 0.7; }
+  97.2% { opacity: 0; }
+  98.4% { opacity: 0.35; }
+  98.6% { opacity: 0; }
+}
+
+/* ---------------------------------------------------
+   LOGO + TITLES
+--------------------------------------------------- */
+.hero-logo {
+  width: 180px;
+  max-width: 40%;
+  height: auto;
+  margin-bottom: 18px;
+  z-index: 4;
+  animation: fadeIn 1s ease forwards;
+}
+
+.hero-title {
+  font-size: 2.7rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  letter-spacing: 1px;
+  z-index: 4;
+  animation: fadeUp 1.1s ease forwards 0.2s;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #d6e1f3;
+  margin-top: 12px;
+  z-index: 4;
+  animation: fadeUp 1.1s ease forwards 0.4s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------
+   HERO MESSAGE (GOLD)
+--------------------------------------------------- */
+.hero-message {
+  margin-top: 16px;
+  max-width: 700px;
+  font-size: 22px;
+  line-height: 1.55;
+  color: #f8d26a;
+  z-index: 4;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.hero-message p {
+  margin: 4px 0;
+}
+
+/* ---------------------------------------------------
+   BUTTONS: 2 on top, 3 below
+--------------------------------------------------- */
+.homepage-buttons {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.homepage-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 150px;
+  padding: 12px 10px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-decoration: none;
+  color: #222;
+  text-align: center;
+  transition: transform 0.25s;
+}
+
+.homepage-card:hover {
+  transform: translateY(-4px);
+}
+
+.icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.homepage-card h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ---------------------------------------------------
+   WHY SOULRAIN SECTION
+--------------------------------------------------- */
+.why-section {
+  margin-top: 70px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.why-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.why-text {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+/* ---------------------------------------------------
+   FOOTER (FINAL, FIXED)
+--------------------------------------------------- */
+.footer {
+  margin-top: 60px;
+  padding-bottom: 50px;
+  text-align: center;
+
+  font-size: 15px;
+  font-weight: 500;
+  color: #bbb;
+  opacity: 0.95;
+
+  position: relative;
+  z-index: 10;
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* ---------------------------------------------------
+   MOBILE — BUTTONS SLIGHTLY BIGGER
+--------------------------------------------------- */
+@media (max-width: 600px) {
+  .button-row {
+    gap: 14px;
+  }
+
+  .homepage-card {
+    width: 130px;
+    padding: 12px 10px;
+    border-radius: 12px;
+  }
+
+  .icon {
+    font-size: 26px;
+  }
+
+  .homepage-card h2 {
+    font-size: 15px;
+    font-weight: 700;
+  }
+}

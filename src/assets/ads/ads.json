@@ -1,0 +1,12 @@
+[
+  {
+    "title": "ad1",
+    "src": "/Ads/ad1.mp4",
+    "thumbnail": "/Ads/ad1.jpg"
+  },
+  {
+    "title": "ad2",
+    "src": "/Ads/ad2.mp4",
+    "thumbnail": "/Ads/ad2.jpg"
+  }
+]

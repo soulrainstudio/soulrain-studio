@@ -1,0 +1,49 @@
+/* Remove all old unwanted styles */
+* {
+    box-sizing: border-box;
+}
+
+/* Thumbnail hover grow */
+.video-thumbnail {
+    transition: transform 0.25s ease;
+}
+
+.video-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+/* Play icon fade-in */
+.play-icon {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.thumbnail-container:hover .play-icon {
+    opacity: 1;
+}
+
+/* Modal overrides */
+.video-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999 !important;
+}
+
+/* Hide scroll behind modal */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* X button */
+.close-btn {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+}
