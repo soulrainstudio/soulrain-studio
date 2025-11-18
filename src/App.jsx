@@ -26,8 +26,7 @@ export default function App() {
     <div className="min-h-screen bg-black text-white">
       <Navbar language={language} toggleLanguage={toggleLanguage} />
 
-      {/* ⭐ Floating Contact Button — appears on every page */}
-      <FloatingContact />
+      
 
       <Routes>
         <Route path="/" element={<HomePage language={language} />} />

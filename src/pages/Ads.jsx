@@ -22,6 +22,7 @@ const images = Object.keys(imageModules).map(path => {
   };
 });
 
+// Merge videos and thumbnails
 const ads = [...videos, ...images];
 
 export default function Ads({ language }) {
@@ -29,7 +30,7 @@ export default function Ads({ language }) {
 
   return (
     <div className="ads-page p-8">
-      
+
       {/* Page Title */}
       <h1 className="text-3xl font-bold mb-4 text-center">
         {language === "en" ? "Ads" : "广告"}
@@ -50,17 +51,16 @@ export default function Ads({ language }) {
             className="ads-thumb-btn flex flex-col items-center"
             onClick={() => setCurrentAd(ad)}
           >
-            {ad.type === "video" ? (
-              <video
-                src={ad.src}
-                className="ads-thumb-media"
-                muted
-                preload="metadata"
-              />
-            ) : (
-              <img src={ad.src} alt={ad.name} className="ads-thumb-media" />
-            )}
-            <span className="ads-thumb-title mt-2 text-white text-center">{ad.name}</span>
+            {/* ✔ Thumbnail preview always uses <img> so mobile shows first frame */}
+            <img
+              src={ad.src}
+              alt={ad.name}
+              className="ads-thumb-media"
+            />
+
+            <span className="ads-thumb-title mt-2 text-white text-center">
+              {ad.name}
+            </span>
           </button>
         ))}
       </div>
@@ -83,6 +83,7 @@ export default function Ads({ language }) {
               key={currentAd.src}
               src={currentAd.src}
               className="ads-full-media"
+              alt={currentAd.name}
             />
           )}
         </div>

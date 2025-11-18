@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import FloatingContact from "./FloatingContact";   // ✅ Add this
 import "./Navbar.css";
 
 export default function Navbar({ language, toggleLanguage }) {
@@ -9,15 +10,18 @@ export default function Navbar({ language, toggleLanguage }) {
 
   return (
     <nav className="navbar">
-      {/* Return Home button (left) */}
+      {/* Left: Home link */}
       <Link to="/" className="nav-item">
         {text.home}
       </Link>
 
-      {/* Language toggle (right) */}
-      <button className="nav-lang-btn" onClick={toggleLanguage}>
-        {text.lang}
-      </button>
+      {/* Right: Contact + Language */}
+      <div className="nav-right">
+        <FloatingContact />   {/* ✅ Contact button now here */}
+        <button className="nav-lang-btn" onClick={toggleLanguage}>
+          {text.lang}
+        </button>
+      </div>
     </nav>
   );
 }

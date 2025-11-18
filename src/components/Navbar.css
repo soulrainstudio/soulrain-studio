@@ -38,3 +38,19 @@
 .nav-lang-btn:hover {
   background: #777;
 }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #111;
+  padding: 10px 16px;
+  color: white;
+}
+
+/* Right-side group: Contact + Language */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
