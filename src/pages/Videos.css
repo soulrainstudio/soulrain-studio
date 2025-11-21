@@ -47,3 +47,6 @@ body.modal-open {
     cursor: pointer;
     color: white;
 }
+.page-description {
+  color: #FFD700;
+}

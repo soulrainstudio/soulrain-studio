@@ -1,29 +1,62 @@
 import { useState } from "react";
 import "./Ads.css";
 
+/* ---------------------------
+   TITLE PARSER (English_Chinese)
+   Example:  Genghis_成吉思汗.mp4
+--------------------------- */
+function parseTitle(filename) {
+  const name = filename.replace(/\.[^.]+$/, "");
+  const parts = name.split("_");
+
+  return {
+    en: parts[0] || name,
+    zh: parts[1] || "",
+  };
+}
+
+/* Load all ads files */
 const videoModules = import.meta.glob("/src/assets/ads/*.{mp4,webm}", { eager: true });
 const imageModules = import.meta.glob("/src/assets/ads/*.{jpg,jpeg,png,gif}", { eager: true });
 
-const videos = Object.keys(videoModules).map(path => {
-  const baseName = path.split("/").pop().replace(/\.[^.]+$/, "");
+/* Convert video list */
+const videos = Object.keys(videoModules).map((path) => {
+  const file = path.split("/").pop();
+  const baseName = file.replace(/\.[^.]+$/, "");
   return {
+    title: parseTitle(file),   // ⬅ added
     name: baseName,
-    src: videoModules[path].default,
-    type: "video"
+    src: videoModules[path].default || videoModules[path],
+    type: "video",
+    thumbnail: null,
+    file,
   };
 });
 
-const images = Object.keys(imageModules).map(path => {
-  const baseName = path.split("/").pop().replace(/\.[^.]+$/, "");
+/* Convert image list */
+const images = Object.keys(imageModules).map((path) => {
+  const file = path.split("/").pop();
+  const baseName = file.replace(/\.[^.]+$/, "");
   return {
+    title: parseTitle(file),   // ⬅ added
     name: baseName,
-    src: imageModules[path].default,
-    type: "image"
+    src: imageModules[path].default || imageModules[path],
+    type: "image",
+    file,
   };
 });
 
-// Merge videos and thumbnails
-const ads = [...videos, ...images];
+/* MATCH thumbnails to videos */
+videos.forEach((vid) => {
+  const thumb = images.find((img) => img.name === vid.name);
+  if (thumb) vid.thumbnail = thumb.src;
+});
+
+/* Unified final list */
+const ads = [
+  ...videos,
+  ...images.filter((img) => !videos.some((v) => v.name === img.name)),
+];
 
 export default function Ads({ language }) {
   const [currentAd, setCurrentAd] = useState(null);
@@ -31,12 +64,12 @@ export default function Ads({ language }) {
   return (
     <div className="ads-page p-8">
 
-      {/* Page Title */}
+      {/* Title */}
       <h1 className="text-3xl font-bold mb-4 text-center">
         {language === "en" ? "Ads" : "广告"}
       </h1>
 
-      {/* Page Description */}
+      {/* Description */}
       <div className="page-description">
         {language === "en"
           ? "Ad films that shape emotion and brand perception, giving your message vivid depth."
@@ -45,30 +78,37 @@ export default function Ads({ language }) {
 
       {/* Thumbnails */}
       <div className="ads-thumbnails grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 justify-center">
+
         {ads.map((ad, idx) => (
           <button
             key={idx}
             className="ads-thumb-btn flex flex-col items-center"
             onClick={() => setCurrentAd(ad)}
           >
-            {/* ✔ Thumbnail preview always uses <img> so mobile shows first frame */}
+
+            {/* Always use <img> for mobile */}
             <img
-              src={ad.src}
+              src={ad.thumbnail ? ad.thumbnail : ad.src}
               alt={ad.name}
               className="ads-thumb-media"
             />
 
+            {/* ⬅ Bilingual Title */}
             <span className="ads-thumb-title mt-2 text-white text-center">
-              {ad.name}
+              {language === "en"
+                ? ad.title.en
+                : ad.title.zh || ad.title.en}
             </span>
           </button>
         ))}
       </div>
 
-      {/* Player */}
+      {/* Player Overlay */}
       {currentAd && (
         <div className="ads-player-overlay">
-          <button className="ads-close-btn" onClick={() => setCurrentAd(null)}>✕</button>
+          <button className="ads-close-btn" onClick={() => setCurrentAd(null)}>
+            ✕
+          </button>
 
           {currentAd.type === "video" ? (
             <video
@@ -83,7 +123,6 @@ export default function Ads({ language }) {
               key={currentAd.src}
               src={currentAd.src}
               className="ads-full-media"
-              alt={currentAd.name}
             />
           )}
         </div>

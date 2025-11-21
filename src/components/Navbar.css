@@ -1,56 +1,201 @@
+/* ================================
+   NAVBAR WRAPPER
+================================ */
 .navbar {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background: #111;
-  padding: 12px 24px;
-  border-bottom: 1px solid #333;
-
-  /* THIS IS CRITICAL */
-  position: relative;
-  z-index: 9999;
-}
-
-.nav-item {
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  background: #222;
-  transition: 0.2s;
-}
-
-.nav-item:hover {
-  background: #444;
-}
-
-.nav-lang-btn {
-  margin-left: auto;
-  cursor: pointer;
-  background: #555;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 6px;
-  border: none;
-}
-
-.nav-lang-btn:hover {
-  background: #777;
-}
-.navbar {
+  width: 100%;
+  padding: 10px 20px;
+  background: #000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  background: #111;
-  padding: 10px 16px;
-  color: white;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-/* Right-side group: Contact + Language */
+/* ================================
+   LEFT SIDE — HOME BUTTON
+================================ */
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-home {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  padding: 6px 12px;
+}
+
+.nav-home:hover {
+  color: #d7b97a;
+}
+
+/* ================================
+   RIGHT SIDE
+================================ */
 .nav-right {
   display: flex;
   align-items: center;
+  gap: 18px;
+}
+
+
+/* ================================
+   SEARCH BAR
+================================ */
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  padding: 7px 12px;
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 6px;
+  width: 170px;
+  transition: border-color 0.25s ease, width 0.25s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #caa86a;
+  width: 210px;
+}
+
+/* ================================
+   DROPDOWN
+================================ */
+.search-dropdown {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 310px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  border-radius: 8px;
+  max-height: 350px;
+  overflow-y: auto;
+  z-index: 2000;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+}
+
+.search-result-item {
+  width: 100%;
+  padding: 10px;
+  display: flex;
   gap: 12px;
+  align-items: center;
+  border: none;
+  background: transparent;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, padding-left 0.2s ease;
+}
+
+.search-result-item:hover {
+  background: rgba(202,168,106,0.18);
+  padding-left: 16px;
+}
+
+.search-thumb {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #333;
+}
+
+.search-thumb.placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+}
+
+/* TEXT IN SEARCH */
+.search-texts {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.search-title-main {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.search-title-sub {
+  font-size: 0.82rem;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+/* ================================
+   CONTACT BUTTON
+================================ */
+.contact-btn {
+  padding: 6px 12px;
+  background: #222;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.contact-btn:hover {
+  background: #333;
+}
+
+/* ================================
+   LANGUAGE TOGGLE
+================================ */
+.lang-btn {
+  padding: 6px 12px;
+  background: #222;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.lang-btn:hover {
+  background: #333;
+}
+
+/* ================================
+   MOBILE RESPONSIVE
+================================ */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 8px 14px;
+  }
+
+  .search-dropdown {
+    width: 90vw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .search-input {
+    width: 140px;
+  }
+
+  .search-input:focus {
+    width: 160px;
+  }
+
+  .search-thumb {
+    width: 54px;
+    height: 36px;
+  }
+
+  .nav-home {
+    font-size: 1.1rem;
+  }
 }

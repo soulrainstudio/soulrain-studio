@@ -1,5 +1,20 @@
 import { useState, useRef } from "react";
 
+/* ---------------------------
+   TITLE PARSER (English_Chinese)
+   Example:  songTitle_歌曲名.mp3
+--------------------------- */
+function parseTitle(filename) {
+  const name = filename.replace(/\.[^.]+$/, "");
+  const parts = name.split("_");
+
+  return {
+    en: parts[0] || name,
+    zh: parts[1] || "",
+  };
+}
+
+/* Load modules */
 const audioModules = import.meta.glob("/src/assets/music/*.{mp3,wav}", {
   eager: true,
 });
@@ -11,10 +26,14 @@ const thumbnailModules = import.meta.glob(
   { eager: true }
 );
 
+/* Process audio files */
 const audios = Object.keys(audioModules).map((path) => {
-  const baseName = path.split("/").pop().replace(/\.[^.]+$/, "");
+  const file = path.split("/").pop();
+  const baseName = file.replace(/\.[^.]+$/, "");
+
   return {
-    name: path.split("/").pop(),
+    title: parseTitle(file),
+    name: file,
     src: audioModules[path].default || audioModules[path],
     type: "audio",
     thumbnail:
@@ -24,10 +43,14 @@ const audios = Object.keys(audioModules).map((path) => {
   };
 });
 
+/* Process video files */
 const videos = Object.keys(videoModules).map((path) => {
-  const baseName = path.split("/").pop().replace(/\.[^.]+$/, "");
+  const file = path.split("/").pop();
+  const baseName = file.replace(/\.[^.]+$/, "");
+
   return {
-    name: path.split("/").pop(),
+    title: parseTitle(file),
+    name: file,
     src: videoModules[path].default || videoModules[path],
     type: "video",
     thumbnail:
@@ -40,30 +63,31 @@ const videos = Object.keys(videoModules).map((path) => {
 const mediaTracks = [...audios, ...videos];
 
 export default function Music({ language }) {
-  const [showPlayer, setShowPlayer] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-
   const audioRef = useRef(null);
   const videoRef = useRef(null);
 
-  const formatTime = (seconds) => {
-    const m = Math.floor(seconds / 60);
-    const s = Math.floor(seconds % 60);
-    return `${m}:${s < 10 ? "0" : ""}${s}`;
-  };
+  const [showPlayer, setShowPlayer] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(null);
 
   const handleThumbnailClick = (track) => {
     setCurrentTrack(track);
     setShowPlayer(true);
-    setIsPlaying(true);
 
     setTimeout(() => {
-      if (track.type === "audio" && audioRef.current) audioRef.current.play();
-      if (track.type === "video" && videoRef.current) videoRef.current.play();
-    }, 0);
+      if (track.type === "audio" && audioRef.current) {
+        audioRef.current.play().catch(() => {});
+      }
+      if (track.type === "video" && videoRef.current) {
+        videoRef.current.play().catch(() => {});
+      }
+    }, 20);
+  };
+
+  const closePlayer = () => {
+    if (audioRef.current) audioRef.current.pause();
+    if (videoRef.current) videoRef.current.pause();
+    setShowPlayer(false);
+    setCurrentTrack(null);
   };
 
   return (
@@ -103,7 +127,13 @@ export default function Music({ language }) {
                   muted
                 />
               )}
-              <span className="text-sm text-center">{track.name}</span>
+
+              {/* Bilingual Title */}
+              <span className="text-sm text-center">
+                {language === "en"
+                  ? track.title.en
+                  : track.title.zh || track.title.en}
+              </span>
             </button>
           ))}
         </div>
@@ -112,82 +142,51 @@ export default function Music({ language }) {
       {/* ========== PLAYER AREA ========== */}
       {showPlayer && currentTrack && (
         <div className="flex flex-col items-center w-full mt-4">
-          <button
-            onClick={() => {
-              setShowPlayer(false);
-              setCurrentTrack(null);
-              setIsPlaying(false);
-            }}
-            className="self-end mb-4 text-2xl font-bold px-3 py-1 bg-gray-700 rounded hover:bg-gray-900"
-          >
-            ✕
-          </button>
+          {/* AUDIO PLAYER ------------------------- */}
+          {currentTrack.type === "audio" && (
+            <>
+              <button
+                onClick={closePlayer}
+                className="self-end mb-4 text-2xl font-bold px-3 py-1 bg-gray-700 rounded hover:bg-gray-900"
+              >
+                ✕
+              </button>
 
-          {/* AUDIO PLAYER */}
-          {currentTrack.type === "audio" ? (
-            <div className="flex flex-col items-center w-full max-w-md">
-              {currentTrack.thumbnail && (
-                <img
-                  src={currentTrack.thumbnail}
-                  className="w-full h-64 object-cover mb-4 rounded"
+              <div className="w-full max-w-md flex flex-col items-center">
+                {currentTrack.thumbnail && (
+                  <img
+                    src={currentTrack.thumbnail}
+                    className="w-full h-64 object-cover mb-4 rounded"
+                  />
+                )}
+
+                {/* NATIVE AUDIO CONTROLS (same slider UI as video) */}
+                <audio
+                  ref={audioRef}
+                  src={currentTrack.src}
+                  controls
+                  autoPlay
+                  style={{ width: "100%" }}
                 />
-              )}
-
-              {/* Play + Time */}
-              <div className="flex items-center w-full mb-3">
-                <button
-                  onClick={() => {
-                    if (isPlaying) audioRef.current.pause();
-                    else audioRef.current.play();
-                    setIsPlaying(!isPlaying);
-                  }}
-                  className="px-3 py-1 bg-gray-700 text-white rounded mr-3"
-                >
-                  {isPlaying ? "❚❚" : "▶"}
-                </button>
-
-                <span className="text-sm">{formatTime(currentTime)}</span>
-                <span className="ml-auto text-sm">{formatTime(duration)}</span>
               </div>
+            </>
+          )}
 
-              {/* Slider */}
-              <input
-                type="range"
-                min="0"
-                max={duration}
-                value={currentTime}
-                onChange={(e) => {
-                  const value = Number(e.target.value);
-                  audioRef.current.currentTime = value;
-                  setCurrentTime(value);
-                }}
-                className="w-full mb-4"
-                style={{ cursor: "pointer" }}
-              />
+          {/* VIDEO PLAYER — ADS STYLE OVERLAY ------ */}
+          {currentTrack.type === "video" && (
+            <div className="ads-player-overlay">
+              <button className="ads-close-btn" onClick={closePlayer}>
+                ✕
+              </button>
 
-              <audio
-                ref={audioRef}
+              <video
+                ref={videoRef}
                 src={currentTrack.src}
-                onTimeUpdate={() =>
-                  setCurrentTime(audioRef.current.currentTime)
-                }
-                onLoadedMetadata={() =>
-                  setDuration(audioRef.current.duration)
-                }
-                onEnded={() => setIsPlaying(false)}
-                style={{ display: "none" }}
+                controls
+                autoPlay
+                className="ads-full-media"
               />
             </div>
-          ) : (
-            /* VIDEO PLAYER */
-            <video
-              ref={videoRef}
-              src={currentTrack.src}
-              controls
-              autoPlay
-              className="w-full max-w-3xl rounded"
-              onEnded={() => setIsPlaying(false)}
-            />
           )}
         </div>
       )}

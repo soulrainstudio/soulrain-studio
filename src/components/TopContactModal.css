@@ -1,0 +1,56 @@
+.topcontact-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 120px;
+  z-index: 9999;
+}
+
+.topcontact-modal {
+  background: #111;
+  border-radius: 12px;
+  padding: 20px;
+  width: 340px;
+  position: relative;
+  border: 1px solid #333;
+}
+
+.topcontact-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.3rem;
+}
+
+.topcontact-title {
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.topcontact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topcontact-item {
+  padding: 8px;
+  background: #222;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  border: 1px solid #333;
+}
+
+.topcontact-item:hover {
+  background: #333;
+}
